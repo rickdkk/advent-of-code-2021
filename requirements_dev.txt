@@ -1,5 +1,3 @@
-# Editable Git install with no remote (advent==0.0.0)
--e /home/rickdkk/Projects/advent-of-code
 attrs==21.2.0
 backports.entry-points-selectable==1.1.1
 black==21.11b1
