@@ -67,34 +67,33 @@ def read_puzzle_input(path: Path) -> tuple[list[int], list[BingoCard]]:
 
 
 def play_game(numbers, boards, win: bool = True):
-    last_board = len(boards)
-    boards_done = []
-
     for number in numbers:
-        for board in boards:
-            if board in boards_done:  # no need to enter more numbers
-                continue
-
+        for board in boards.copy():  # make sure not to remove elements in a loop
             board.enter_number(number)
 
             if win and board.bingo:
                 return number, board
-            elif not win and board.bingo:
-                boards_done.append(board)
-                if len(boards_done) == last_board:
+            elif not win and board.bingo and board in boards:
+                boards.remove(board)
+                if not boards:
                     return number, board
+        boards = boards.copy()  # don't consider finished boards again
 
 
 def main():
     numbers, boards = read_puzzle_input(Path("../data/day_4_data.txt"))
     winning_number, winner = play_game(numbers, boards)
-    print(winning_number * winner.sum_unmarked())
+    answer1 = winning_number * winner.sum_unmarked()
+    assert answer1 == 69579
+    print(answer1)
 
     for board in boards:
         board.reset()
 
     winning_number, loser = play_game(numbers, boards, False)
-    print(winning_number * loser.sum_unmarked())
+    answer2 = winning_number * loser.sum_unmarked()
+    assert answer2 == 14877
+    print(answer2)
 
 
 if __name__ == "__main__":

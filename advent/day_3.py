@@ -82,7 +82,7 @@ def calculate_life_support(data: list[list]) -> int:
 
 
 def main():
-    report = read_diagnostics(Path("../data/day_3_data.txt"))
+    report = read_diagnostics(Path("./data/day_3_example.txt"))
     report = parse_bits(report)
     power_consumption = calculate_power_consumption(report)
     print(f"The power consumption is equal to {power_consumption} power consumption units!")
